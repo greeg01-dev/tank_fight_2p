@@ -19,23 +19,24 @@ impl<'s> System<'s> for ReduceHpSystem {
         for (_, transform, entity) in (&cannonballs_1p, &transforms, &entities).join() {
             for (tank_2p, tank_2p_transform) in (&mut tanks_2p, &transforms).join() {
                 for tank_1p in (&mut tanks_1p).join() {
-                    if transform.translation().x + 3.75 >= tank_2p_transform.translation().x - 18.75 &&
-                        transform.translation().y - 3.75 <= tank_2p_transform.translation().y + 18.75 &&
-                        transform.translation().y + 3.75 >= tank_2p_transform.translation().y - 18.75 {
+                    if transform.translation().x + 3.75 >= tank_2p_transform.translation().x - 37.5 &&
+                        transform.translation().x - 3.75 <= tank_2p_transform.translation().x + 37.5 &&
+                        transform.translation().y - 3.75 <= tank_2p_transform.translation().y + 37.5 &&
+                        transform.translation().y + 3.75 >= tank_2p_transform.translation().y - 37.5 {
                         tank_1p.shooted = false;
                         tank_2p.hp -= 10;
                         let _ = entities.delete(entity);
                     }
                 }
-
             }
         }
         for (_, transform, entity) in (&cannonballs_2p, &transforms, &entities).join() {
             for (tank_1p, tank_1p_transform) in (&mut tanks_1p, &transforms).join() {
                 for tank_2p in (&mut tanks_2p).join() {
-                    if transform.translation().x - 3.75 <= tank_1p_transform.translation().x - 18.75 &&
-                        transform.translation().y - 3.75 <= tank_1p_transform.translation().y + 18.75 &&
-                        transform.translation().y + 3.75 >= tank_1p_transform.translation().y - 18.75 {
+                    if transform.translation().x - 3.75 <= tank_1p_transform.translation().x + 37.5 &&
+                        transform.translation().x + 3.75 >= tank_1p_transform.translation().x - 37.5 &&
+                        transform.translation().y - 3.75 <= tank_1p_transform.translation().y + 37.5 &&
+                        transform.translation().y + 3.75 >= tank_1p_transform.translation().y - 37.5 {
                         tank_2p.shooted = false;
                         tank_1p.hp -= 10;
                         let _ = entities.delete(entity);

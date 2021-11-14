@@ -23,7 +23,6 @@ pub const ARENA_HEIGHT: f32 = 500.0;
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
-
     let app_root = application_root_dir()?;
     let display_config_path = app_root.join("config").join("display.ron");
     let assets_dir = app_root.join("assets");
