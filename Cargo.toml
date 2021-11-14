@@ -10,4 +10,4 @@ edition = "2018"
 
 [dependencies.amethyst]
 version="0.15.3"
-features=["vulkan"]
+features=["vulkan", "no-slow-safety-checks"]

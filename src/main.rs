@@ -7,9 +7,15 @@ use amethyst::{
     },
     utils::application_root_dir
 };
+use amethyst::core::TransformBundle;
+use amethyst::input::StringBindings;
 use amethyst::renderer::{RenderFlat2D, RenderingBundle, RenderToWindow};
+use amethyst::ui::RenderUi;
 
 mod state;
+mod system;
+mod entities;
+
 use state::GamePlayState;
 
 pub const ARENA_WIDTH: f32 = 1000.0;
@@ -22,6 +28,9 @@ fn main() -> amethyst::Result<()> {
     let display_config_path = app_root.join("config").join("display.ron");
     let assets_dir = app_root.join("assets");
 
+    let input_bundle = amethyst::input::InputBundle::<StringBindings>::new();
+    let ui_bundle = amethyst::ui::UiBundle::<StringBindings>::new();
+
     let game_data = GameDataBuilder::new()
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
@@ -30,8 +39,19 @@ fn main() -> amethyst::Result<()> {
                         .with_clear([1.0, 1.0, 1.0, 1.0])
                 )
                 .with_plugin(RenderFlat2D::default())
-        )?;
-    let mut game = Application::new(assets_dir, GamePlayState::new(), game_data)?;
+                .with_plugin(RenderUi::default())
+        )?
+        .with_bundle(TransformBundle::new())?
+        .with_bundle(input_bundle)?
+        .with_bundle(ui_bundle)?
+        .with(system::MoveTankSystem, "move_tank_system", &["input_system"])
+        .with(system::FireCannonballSystem, "fire_cannonball_system", &["input_system"])
+        .with(system::MoveCannonballSystem, "move_cannonball_system", &[])
+        .with(system::MoveHpBarSystem, "move_hp_bar_system", &[])
+        .with(system::ReduceHpSystem, "reduce_hp_system", &[])
+        .with(system::HpBarSystem, "hp_bar_system", &[])
+        .with(system::GameResultSystem, "game_result_system", &[]);
+    let mut game = Application::new(assets_dir, GamePlayState::default(), game_data)?;
     game.run();
     Ok(())
 }
