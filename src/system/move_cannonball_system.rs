@@ -20,7 +20,7 @@ impl<'s> System<'s> for MoveCannonballSystem {
         for (_, transform, entity) in (&mut cannonballs_1p, &mut transforms, &entities).join() {
             for tank in (&mut tank_1ps).join() {
                 if tank.shooted {
-                    transform.prepend_translation_x(10.0);
+                    transform.prepend_translation_x(15.0);
                 }
                 if transform.translation().x >= ARENA_WIDTH {
                     let _ = entities.delete(entity);
@@ -31,7 +31,7 @@ impl<'s> System<'s> for MoveCannonballSystem {
         for (_, transform, entity) in (&mut cannonballs_2p, &mut transforms, &entities).join() {
             for tank in (&mut tank_2ps).join() {
                 if tank.shooted {
-                    transform.prepend_translation_x(-10.0);
+                    transform.prepend_translation_x(-15.0);
                 }
                 if transform.translation().x <= 0.0 {
                     let _ = entities.delete(entity);
