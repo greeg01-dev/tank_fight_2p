@@ -1,9 +1,12 @@
+// use dependencies
 use amethyst::core::math::Vector3;
 use amethyst::core::Transform;
 use amethyst::ecs::{Join, ReadStorage, System, WriteStorage};
 
+// use entities
 use crate::entities::{Tank1p, Tank2p, HpBarOuter1p, HpBarOuter2p};
 
+// define struct `HpBarSystem`
 pub struct HpBarSystem;
 
 impl<'s> System<'s> for HpBarSystem {
@@ -16,19 +19,23 @@ impl<'s> System<'s> for HpBarSystem {
     );
 
     fn run(&mut self, (mut transforms, tanks_1p, tanks_2p, mut hp_bars_outer_1p, mut hp_bars_outer_2p): Self::SystemData) {
+        // makes hp_bar's scale reduced if tank's hp isn't same with what recorded in hp_bar
         for (hp_bar_outer_1p, transform) in (&mut hp_bars_outer_1p, &mut transforms).join() {
             for tank_1p in (&tanks_1p).join() {
                 if tank_1p.hp != hp_bar_outer_1p.hp {
-                    hp_bar_outer_1p.hp -= 1;
+                    hp_bar_outer_1p.hp -= 1; // to reduce hp_bar's scale slowly
+                    // reduce hp_bar's scale and move it to left
                     transform.set_scale(Vector3::new(hp_bar_outer_1p.hp as f32 / hp_bar_outer_1p.max_hp as f32, 1.0, 1.0));
                     transform.prepend_translation_x(-0.3);
                 }
             }
         }
+        // makes hp_bar's scale reduced if tank's hp isn't same with what recorded in hp_bar
         for (hp_bar_outer_2p, transform) in (&mut hp_bars_outer_2p, &mut transforms).join() {
             for tank_2p in (&tanks_2p).join() {
                 if tank_2p.hp != hp_bar_outer_2p.hp {
-                    hp_bar_outer_2p.hp -= 1;
+                    hp_bar_outer_2p.hp -= 1; // to reduce hp_bar's scale slowly
+                    // reduce hp_bar's scale and move it to left
                     transform.set_scale(Vector3::new(hp_bar_outer_2p.hp as f32 / hp_bar_outer_2p.max_hp as f32, 1.0, 1.0));
                     transform.prepend_translation_x(-0.3);
                 }
