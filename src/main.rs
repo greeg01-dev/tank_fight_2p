@@ -1,16 +1,13 @@
 #![windows_subsystem = "windows"]
 
-use amethyst::{
-    prelude::*,
-    renderer::{
-        types::DefaultBackend
-    },
-    utils::application_root_dir
-};
+use amethyst::{prelude::*, renderer::{
+    types::DefaultBackend
+}, utils::application_root_dir};
 use amethyst::core::TransformBundle;
 use amethyst::input::StringBindings;
 use amethyst::renderer::{RenderFlat2D, RenderingBundle, RenderToWindow};
 use amethyst::ui::RenderUi;
+use amethyst::window::DisplayConfig;
 
 mod state;
 mod system;
@@ -24,7 +21,6 @@ pub const ARENA_HEIGHT: f32 = 500.0;
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
     let app_root = application_root_dir()?;
-    let display_config_path = app_root.join("config").join("display.ron");
     let assets_dir = app_root.join("assets");
 
     let input_bundle = amethyst::input::InputBundle::<StringBindings>::new();
@@ -34,7 +30,13 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(
-                    RenderToWindow::from_config_path(display_config_path)?
+                    RenderToWindow::from_config(DisplayConfig {
+                        title: "Tank Fight 2p".to_string(),
+                        dimensions: Some((1000, 500)),
+                        icon: Some(app_root.join("icon_image.png")),
+                        resizable: false,
+                        ..Default::default()
+                    })
                         .with_clear([1.0, 1.0, 1.0, 1.0])
                 )
                 .with_plugin(RenderFlat2D::default())
