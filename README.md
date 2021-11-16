@@ -1,6 +1,6 @@
 # Tank Fight 2p
 A tank fight game made with [Rust](https://www.rust-lang.org)
-![tank_fight_2p](./screenshot.png)
+![tank_fight_2p](./ScreenShot.png)
 
 ## Modules
 * [amethyst](https://github.com/amethyst/amethyst)
