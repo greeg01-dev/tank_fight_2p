@@ -19,8 +19,8 @@ pub use winner_text::{WinnerText, quit_game};
 // define function `initialise_entities` to run functions in other files in `/entities`
 pub fn initialise_entities(world: &mut World) {
     // define variables which have sprite sheets' info
-    let tank_sprite_handle = load_sprite_sheet(world, "texture/tank_sprite.png", "texture/tank_sprite.ron");
-    let hp_bar_sprite_handle = load_sprite_sheet(world, "texture/hp_bar.png", "texture/hp_bar.ron");
+    let tank_sprite_handle = load_sprite_sheet(world, "sprite/tank_sprite.png", "sprite/tank_sprite.ron");
+    let hp_bar_sprite_handle = load_sprite_sheet(world, "sprite/hp_bar.png", "sprite/hp_bar.ron");
 
     camera::initialise_camera(world);
     tank::initialise_tanks(world, tank_sprite_handle.clone());
