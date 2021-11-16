@@ -39,7 +39,7 @@ fn main() -> amethyst::Result<()> {
                     RenderToWindow::from_config(DisplayConfig {
                         title: "Tank Fight 2p".to_string(),
                         dimensions: Some((1000, 500)),
-                        icon: Some(app_root.join("icon_image.png")),
+                        icon: Some(app_root.join("assets").join("icon").join("icon_image.png")),
                         resizable: false,
                         ..Default::default()
                     })
