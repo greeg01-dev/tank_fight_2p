@@ -7,7 +7,7 @@ A tank fight game made with [Rust](https://www.rust-lang.org)
 
 ## How to run
 ```shell
-$ git clone https://github.com/greeg01-dev/tank_fight_2p
+$ git clone https://github.com/greeg01-dev/tank_fight_2p.git
 $ cd ./tank_fight_2p
 $ cargo run
 ```
